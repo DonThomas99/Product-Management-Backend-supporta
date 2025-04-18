@@ -5,7 +5,8 @@ export interface product{
     images:string[];
     description:string;
     price:number;
-    addedBy:string
+    addedBy:string;
+    isBlocked:Boolean;
 }
 
 export interface Oproduct{
@@ -16,7 +17,14 @@ export interface Oproduct{
     images:string[];
     description:string;
     price:number;
-    addedBy:string
+    addedBy:string;
+    isBlocked:Boolean;
     createdAt:string;
     updatedAt:string;
+}
+
+export interface ProductResponse{
+    status:number;
+    message:string;
+    data:any|null
 }

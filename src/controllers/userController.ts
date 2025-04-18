@@ -1,6 +1,7 @@
+
 class UserController{
-    constructor(){
-    }
+    constructor(){}
+    
 }
 
 export default UserController
