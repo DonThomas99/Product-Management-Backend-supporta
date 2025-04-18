@@ -8,6 +8,16 @@ class ProductController{
         this.productUsecase = productUsecase
     }
 
+    async fetchAllProducts(req:Request,res:Response){
+        try {
+            const response = await this.productUsecase.fetchAllProducts()
+            res.status(response.status).json({message:response?.message})
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({message:"Error Fetching Products"})
+        }
+    }
+
     async fetchProductByUserId(req:Request,res:Response){
         try {
             const {userId}=req.body

@@ -108,6 +108,12 @@ class productUsecase{
                     message:"Fetched Products Successfully",
                     data:products
                 }
+            }else{
+                return{
+                    status:400,
+                    message:"Error Fetching Products",
+                    data:null
+                }
             }
         } catch (error) {
             console.error(error);

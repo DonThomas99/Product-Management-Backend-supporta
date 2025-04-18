@@ -16,9 +16,11 @@ const productCase = new productUsecase(cloudinary,productRepo)
 const productController = new ProductController(productCase)
 
 productRoutes.get('/productById',(req:Request,res)=>{productController.fetchProductByUserId(req,res)})
+productRoutes.get('/product',(req:Request,res)=>{productController.fetchAllProducts(req,res)})
 productRoutes.post('/product', Multer,validateBrandAndCategory,(req: Request, res)=>{productController.addProduct(req, res);});
 productRoutes.patch('/product',(req:Request,res)=>{productController.updateProduct(req,res)})
-productRoutes.put('/product',(req:Request,res)=>{productController}) 
+productRoutes.put('/product',(req:Request,res)=>{productController.toggleBlock(req,res)})
+productRoutes.delete('/product',(req:Request,res)=>{productController.deleteProduct(req,res)}) 
 
 
 export default productRoutes
