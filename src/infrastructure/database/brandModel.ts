@@ -5,6 +5,10 @@ const brandSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    brandLogo:{
+        type:String,
+        required:true  
+    },
     category:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Category',

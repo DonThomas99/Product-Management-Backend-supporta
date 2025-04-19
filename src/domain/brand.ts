@@ -3,7 +3,9 @@ import { Types } from "mongoose";
 // Define types if not already defined
 export interface IBrandInput {
     name: string;
-    category: Types.ObjectId[]; // or string[] depending on how you handle them
+    category: Types.ObjectId[];
+    brandLogo:string;
+    isBlocked:boolean;
   }
   
  export interface IBrandOutput {

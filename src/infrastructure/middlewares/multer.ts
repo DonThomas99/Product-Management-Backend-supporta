@@ -19,3 +19,21 @@ const upload = multer({
 
 // Export as middleware
 export const Multer = upload.array('images', 4);
+
+
+// middlewares/multer/brandLogo.ts
+
+const singlePicUpload = multer({
+  storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024 // 5MB
+  },
+  fileFilter: (req, file, cb) => {
+    if (!file.mimetype.startsWith('image/')) {
+      return cb(null, false); // Reject non-image
+    }
+    cb(null, true);
+  }
+});
+
+export const singleUpload = singlePicUpload.single('logo'); // 'logo' is the key used in form-data
