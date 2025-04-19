@@ -1,23 +1,36 @@
 import Ijwt from "../../useCase/interfaces/jwt";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 
-class JwtCreate implements Ijwt{
-    createJwt(Id: string): string {
-    const jwtKey =  process.env.JWT_KEY
-    if(jwtKey){
-        const token:string = jwt.sign({id:Id},jwtKey)
-    return token
-    }
-    throw new Error("JWT_KEY is not defined")
-    }
-    generateRefreshToken(id:string):string{
-        const key = process.env.JWT_KEY
-        if(key){
-            const exp = Math.floor(Date.now()/1000) + (24*60*60)
-            return jwt.sign({id:id,iat:Date.now()/1000},key)
+class JwtCreate implements Ijwt {
+
+    // Method required by Ijwt interface
+    createJwt(userId: string, role: string): string {
+        const accessSecret = process.env.ACCESS_TOKEN_SECRET;
+        if (accessSecret) {
+            return jwt.sign({ id: userId, role }, accessSecret, { expiresIn: "15m" });
         }
-        throw new Error("JWT Key is not defined")
+        throw new Error("ACCESS_TOKEN_SECRET is not defined");
+    }
+
+    generateAccessToken(userId: string): string {
+        return this.createJwt(userId, "user"); // default role "user", or pass dynamic role
+    }
+
+    generateRefreshToken(userId: string): string {
+        const refreshSecret = process.env.REFRESH_TOKEN_SECRET;
+        if (refreshSecret) {
+            return jwt.sign({ id: userId }, refreshSecret, { expiresIn: "7d" });
+        }
+        throw new Error("REFRESH_TOKEN_SECRET is not defined");
+    }
+
+    verifyToken(token: string, type: 'access' | 'refresh'): any {
+        const secret = type === 'access' ? process.env.ACCESS_TOKEN_SECRET : process.env.REFRESH_TOKEN_SECRET;
+        if (secret) {
+            return jwt.verify(token, secret);
+        }
+        throw new Error(`${type.toUpperCase()}_TOKEN_SECRET is not defined`);
     }
 }
 
-export default JwtCreate
+export default JwtCreate;

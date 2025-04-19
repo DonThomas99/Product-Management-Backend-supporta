@@ -13,9 +13,9 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    profilePhote:{
+    profilePhoto:{
         type:String,
-        default:'default.jpg'
+        required:true
     },
     refreshToken:{
         type:String,
@@ -33,4 +33,5 @@ const userSchema = new mongoose.Schema({
     timestamps:true
 })
 
-module.exports = mongoose.model('User',userSchema)
+const userModel = mongoose.model('User',userSchema)
+export default userModel
