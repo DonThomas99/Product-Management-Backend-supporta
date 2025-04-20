@@ -5,6 +5,7 @@ import CategoryRepository from '../repositories/categoryRepository'
 import Cloudinary from '../utils/cloudinary'
 import BrandController from '../../controllers/brandController'
 import { singleUpload } from '../middlewares/multer'
+import { userAuth } from '../middlewares/userAuth'
 const brandRoutes = express.Router()
 
 const brandRepo = new BrandRepository()
@@ -13,10 +14,10 @@ const cloudinary = new Cloudinary()
 const brandUsecase = new BrandUsecase(cloudinary,categoryRepo,brandRepo)
 const brandController = new BrandController(brandUsecase)
 
-brandRoutes.get('/brand',(req:Request,res)=>{brandController.fetchAllBrands(req,res)})
-brandRoutes.post('/brand',singleUpload,(req:Request,res)=>{brandController.addBrand(req,res)})
-brandRoutes.put('/brand',singleUpload,(req:Request,res)=>{brandController.updateBrand(req,res)})
-brandRoutes.patch('/brand',(req:Request,res)=>{brandController.toggleBlock(req,res)})
+brandRoutes.get('/brand',userAuth,(req:Request,res)=>{brandController.fetchAllBrands(req,res)})
+brandRoutes.post('/brand',userAuth,singleUpload,(req:Request,res)=>{brandController.addBrand(req,res)})
+brandRoutes.put('/brand',userAuth,singleUpload,(req:Request,res)=>{brandController.updateBrand(req,res)})
+brandRoutes.patch('/brand',userAuth,(req:Request,res)=>{brandController.toggleBlock(req,res)})
 
 
 export default brandRoutes
