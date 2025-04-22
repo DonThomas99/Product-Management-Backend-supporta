@@ -11,6 +11,7 @@ export interface IBrandInput {
  export interface IBrandOutput {
     _id: Types.ObjectId;
     name: string;
+    brandLogo:string;
     category: Types.ObjectId[];
     isBlocked: boolean;
   }

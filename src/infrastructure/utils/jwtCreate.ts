@@ -1,5 +1,7 @@
 import Ijwt from "../../useCase/interfaces/jwt";
 import jwt from "jsonwebtoken";
+import dotenv from 'dotenv';
+dotenv.config();
 
 class JwtCreate implements Ijwt {
 

@@ -36,4 +36,5 @@ const singlePicUpload = multer({
   }
 });
 
-export const singleUpload = singlePicUpload.single('logo'); // 'logo' is the key used in form-data
+export const profilePhotoUpload = singlePicUpload.single('profilePhoto'); // 'logo' is the key used in form-data
+export const logoUpload = singlePicUpload.single('brandLogo')

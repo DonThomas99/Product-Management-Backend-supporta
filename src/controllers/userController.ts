@@ -17,7 +17,7 @@ class UserController{
             res.status(response.status).json({message:response.message,data:response.data})
         } catch (error) {
             console.error(error);
-            res.status(500).json({message:"Internal Server Error"})
+            res.status(500).json({message:"Internal Server Error from controller"})
         }
     }
 

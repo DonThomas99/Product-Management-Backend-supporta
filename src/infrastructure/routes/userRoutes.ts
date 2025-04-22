@@ -6,6 +6,7 @@ import JwtCreate from '../utils/jwtCreate'
 import Encrypt from '../utils/hashPassword'
 import UserController from '../../controllers/userController'
 import { userAuth } from '../middlewares/userAuth'
+import { profilePhotoUpload } from '../middlewares/multer'
 const userRoutes = express.Router()
 
 const userRepo = new UserRepository()
@@ -15,8 +16,8 @@ const encrypt = new Encrypt()
 const userUsecase = new UserUsecase(cloudinary,encrypt,jwtCreate,userRepo)
 const userController = new UserController(userUsecase)
 
-userRoutes.post('/user',(req:Request,res)=>{userController.userSignup(req,res)})
-userRoutes.post('/userLogin',(req:Request,res)=>{userController.userSignup(req,res)})
+userRoutes.post('/user',profilePhotoUpload,(req:Request,res)=>{userController.userSignup(req,res)})
+userRoutes.post('/userLogin',(req:Request,res)=>{userController.userLogin(req,res)})
 userRoutes.put('/user',userAuth,(req:Request,res)=>{userController.blockUser(req,res)})
 userRoutes.patch('/user',userAuth,(req:Request,res)=>{userController.unblockUser(req,res)})
 userRoutes.post('/updateUser',userAuth,(req:Request,res)=>{userController.updateUser(req,res)})

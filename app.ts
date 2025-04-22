@@ -8,6 +8,7 @@ import http from 'http'
 import userRoutes from './src/infrastructure/routes/userRoutes'
 import brandRoutes from './src/infrastructure/routes/brandRoutes'
 import productRoutes from './src/infrastructure/routes/productRoutes'
+import categoryRoutes from './src/infrastructure/routes/categoryRoutes'
 dotenv.config()
 
 const app = express()
@@ -37,6 +38,7 @@ const startServer = async()=>{
         })
         app.use('/user',userRoutes)
         app.use('/brands',brandRoutes)
+        app.use('/category',categoryRoutes)
         app.use('/products',productRoutes)
 
         server.on('error',(error)=>{
